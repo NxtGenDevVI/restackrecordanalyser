@@ -388,11 +388,12 @@ async function loadDashboard() {
                 const dkimHf = Boolean(check.dkim_hf);
                 const dkimHf2 = Boolean(check.dkim_hf2);
                 const score = check.score || 0;
+                const displayEmail = check.email || check.domain; // Fallback to domain if no email
                 
                 return `
                 <div class="check-item-detailed">
                     <div class="check-header">
-                        <span class="check-domain">${escapeHtml(check.email)}</span>
+                        <span class="check-domain">${escapeHtml(displayEmail)}</span>
                         <div class="score-badge score-${getScoreClass(score)}">${score}%</div>
                         <span class="check-time">${formatTimestamp(check.timestamp)}</span>
                     </div>
