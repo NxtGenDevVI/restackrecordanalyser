@@ -224,13 +224,16 @@ function showError(message) {
 
 async function logToBackend(domain, results) {
     try {
-        await fetch(`${BACKEND_API}/log`, {
+        console.log('Sending to backend:', { domain, results });
+        const response = await fetch(`${BACKEND_API}/log`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ domain, results })
         });
+        const responseData = await response.json();
+        console.log('Backend response:', responseData);
     } catch (error) {
         console.error('Failed to log to backend:', error);
     }
