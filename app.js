@@ -391,7 +391,17 @@ async function loadDashboard() {
                 const dkimBa2 = Boolean(check.dkim_ba2);
                 const dkimHf = Boolean(check.dkim_hf);
                 const dkimHf2 = Boolean(check.dkim_hf2);
-                const score = check.score || 0;
+                
+                // Calculate score if not stored (for old records)
+                let score = check.score;
+                if (!score) {
+                    score = 0;
+                    if (spfExists) score += 40;
+                    const dkimCount = [dkimBh, dkimBa, dkimBa2, dkimHf, dkimHf2].filter(Boolean).length;
+                    score += dkimCount * 8;
+                    if (dmarcExists) score += 20;
+                }
+                
                 const displayEmail = check.email || check.domain; // Fallback to domain if no email
                 
                 return `
