@@ -458,11 +458,13 @@ main {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     font-family: 'Courier New', monospace;
-    font-size: 16px;
-    word-break: break-all;
+    font-size: 14px;
+    word-break: break-word;
+    overflow-wrap: break-word;
     white-space: pre-wrap;
     margin-top: 10px;
     color: var(--dark-gray);
+    display: block;
 }
 
 .hidden {
