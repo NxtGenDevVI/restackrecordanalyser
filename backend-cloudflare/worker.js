@@ -86,7 +86,9 @@ async function handleStats(request, env, corsHeaders) {
     ).all();
 
     const recentChecks = await env.DB.prepare(
-      `SELECT domain, timestamp 
+      `SELECT domain, timestamp, spf_exists, spf_record, 
+              dkim_bh, dkim_ba, dkim_ba2, dkim_hf, dkim_hf2, 
+              dmarc_exists, dmarc_policy, ip_address
        FROM audit_log 
        ORDER BY timestamp DESC 
        LIMIT 20`

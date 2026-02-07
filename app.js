@@ -245,6 +245,7 @@ const pinInput = document.getElementById('pinInput');
 const pinSubmit = document.getElementById('pinSubmit');
 const pinError = document.getElementById('pinError');
 const dashboardSection = document.getElementById('dashboardSection');
+const refreshButton = document.getElementById('refreshButton');
 
 const ADMIN_PIN = '1501';
 
@@ -274,6 +275,10 @@ pinInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         verifyPin();
     }
+});
+
+refreshButton.addEventListener('click', () => {
+    loadDashboard();
 });
 
 function verifyPin() {
@@ -308,9 +313,30 @@ async function loadDashboard() {
         const recentChecksList = document.getElementById('recentChecksList');
         if (data.recentChecks && data.recentChecks.length > 0) {
             recentChecksList.innerHTML = data.recentChecks.map(check => `
-                <div class="check-item">
-                    <span class="check-domain">${escapeHtml(check.domain)}</span>
-                    <span class="check-time">${formatTimestamp(check.timestamp)}</span>
+                <div class="check-item-detailed">
+                    <div class="check-header">
+                        <span class="check-domain">${escapeHtml(check.domain)}</span>
+                        <span class="check-time">${formatTimestamp(check.timestamp)}</span>
+                    </div>
+                    <div class="check-results">
+                        <div class="result-row">
+                            <strong>SPF:</strong> ${check.spf_exists ? '✓ Yes' : '✗ No'}
+                            ${check.spf_record ? `<br><code class="small-code">${escapeHtml(check.spf_record)}</code>` : ''}
+                        </div>
+                        <div class="result-row">
+                            <strong>DKIM:</strong> 
+                            bh:${check.dkim_bh ? '✓' : '✗'} 
+                            ba:${check.dkim_ba ? '✓' : '✗'} 
+                            ba2:${check.dkim_ba2 ? '✓' : '✗'} 
+                            hf:${check.dkim_hf ? '✓' : '✗'} 
+                            hf2:${check.dkim_hf2 ? '✓' : '✗'}
+                        </div>
+                        <div class="result-row">
+                            <strong>DMARC:</strong> ${check.dmarc_exists ? '✓ Yes' : '✗ No'}
+                            ${check.dmarc_policy ? ` (${check.dmarc_policy})` : ''}
+                        </div>
+                        ${check.ip_address ? `<div class="result-row"><strong>IP:</strong> ${escapeHtml(check.ip_address)}</div>` : ''}
+                    </div>
                 </div>
             `).join('');
         } else {

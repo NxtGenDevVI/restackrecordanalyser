@@ -351,6 +351,36 @@ footer {
     font-size: 28px;
 }
 
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+    margin-bottom: 0;
+}
+
+.refresh-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.refresh-button:hover {
+    background-color: #2980b9;
+}
+
+.refresh-button:active {
+    transform: scale(0.98);
+}
+
 #pinSection {
     text-align: center;
     padding: 40px 20px;
@@ -446,6 +476,51 @@ footer {
     align-items: center;
     padding: 12px 0;
     border-bottom: 1px solid var(--border-color);
+}
+
+.check-item-detailed {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.check-item-detailed:last-child {
+    border-bottom: none;
+}
+
+.check-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.check-results {
+    background-color: var(--card-background);
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.result-row {
+    margin: 6px 0;
+    line-height: 1.6;
+}
+
+.result-row strong {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.small-code {
+    display: block;
+    margin-top: 4px;
+    padding: 6px;
+    background-color: var(--light-gray);
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    word-break: break-all;
+    color: var(--dark-gray);
 }
 
 .check-item:last-child, .domain-item:last-child {
