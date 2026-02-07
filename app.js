@@ -309,6 +309,7 @@ async function loadDashboard() {
         
         const data = await response.json();
         console.log('Dashboard data received:', data);
+        console.log('First check record:', data.recentChecks[0]);
         
         // Update total checks
         document.getElementById('totalChecks').textContent = data.totalChecks || 0;
